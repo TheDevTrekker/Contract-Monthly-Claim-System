@@ -15,33 +15,13 @@ namespace ContractMonthlyClaimSystem.Controllers
 
         public IActionResult Index()
         {
+            string role = HttpContext.Session.GetString("Role");
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
-        public IActionResult ManageClaims()
-        {
-            return View();
-        }
 
-        public IActionResult SubmitClaim()
-        {
-            return View();
-        }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        public IActionResult TrackClaims()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

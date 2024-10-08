@@ -4,8 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<UserService>();
 
+
+builder.Services.AddScoped<userExamples>();
 // Add session services
 builder.Services.AddSession(options =>
 {
@@ -29,7 +30,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 // Enable session middleware
-app.UseSession(); // This must be added before app.UseAuthorization()
+app.UseSession(); 
 
 app.UseAuthorization();
 

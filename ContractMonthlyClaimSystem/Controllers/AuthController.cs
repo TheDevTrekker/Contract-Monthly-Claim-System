@@ -1,49 +1,69 @@
 ﻿using ContractMonthlyClaimSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ContractMonthlyClaimSystem.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly UserService _userService;
+        private readonly ILogger<AuthController> _logger;
+        private readonly userExamples _userExamples;
+        public List<Register> managerExample = new List<Register>();
 
-        public AuthController()
+        public AuthController(ILogger<AuthController> logger, userExamples userExamples)
         {
-            _userService = new UserService();
+            _logger = logger;
+            _userExamples = userExamples;
         }
 
         [HttpGet]
         public IActionResult Login()
         {
+            ViewData["Title"] = "Login";
             return View();
         }
 
         [HttpGet]
-        public IActionResult register()
+        public IActionResult Register()
         {
+            ViewData["Title"] = "Register";
             return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Register(Register model)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                return RedirectToAction("Login");
+            }
+
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Login(string email, string password)
+        public IActionResult Login(Login model)
         {
-            var user = _userService.ValidateUser(email, password);
-
-            if (user != null)
+            managerExample = _userExamples.manager();
+            
+            if (ModelState.IsValid)
             {
-                HttpContext.Session.SetString("UserEmail", user.Email);
-                HttpContext.Session.SetString("UserRole", user.Role);
+                foreach (var item in managerExample)
+                {
+                    if (model.Email == item.Email && model.Password == item.Password)
+                    {
+                        HttpContext.Session.SetString("Role", item.Role);
+                        return RedirectToAction("ManagerReview", "AcademicManager");
+                    }
+                }
+
                 return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.ErrorMessage = "Invalid email or password.";
-            return View();
-        }
-
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+            return View(model);
         }
     }
 }
