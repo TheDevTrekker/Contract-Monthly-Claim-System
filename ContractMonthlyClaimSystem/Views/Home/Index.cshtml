@@ -2,7 +2,32 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .lead {
+        font-size: 1.25em;
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        width: 200px;
+    }
+</style>
+
+<div class="container text-center">
+    <h1 class="display-4">Claims Management System</h1>
+    <p class="lead">Welcome to the Claims Management System! This application simplifies the process of submitting, approving, and tracking claims for lecturers. Our goal is to enhance efficiency with a user-friendly interface.</p>
+
+    <div class="mt-4">
+        <a class="btn btn-primary btn-lg m-2" href="/Home/SubmitClaim">Submit a Claim</a>
+        <a class="btn btn-secondary btn-lg m-2" href="/Home/ManageClaims">Approve or Reject Claims</a>
+        <a class="btn btn-success btn-lg m-2" href="/Home/TrackClaims">Track Claim Status</a>
+    </div>
 </div>
+
+
