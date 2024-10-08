@@ -33,6 +33,11 @@ namespace ContractMonthlyClaimSystem.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         public IActionResult TrackClaims()
         {
             return View();
