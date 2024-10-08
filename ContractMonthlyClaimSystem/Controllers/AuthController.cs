@@ -9,7 +9,10 @@ namespace ContractMonthlyClaimSystem.Controllers
     {
         private readonly ILogger<AuthController> _logger;
         private readonly userExamples _userExamples;
+        //examples of users
         public List<Register> managerExample = new List<Register>();
+        public List<Register> coordinatorExample = new List<Register>();
+        public List<Register> lecturerExample = new List<Register>();
 
         public AuthController(ILogger<AuthController> logger, userExamples userExamples)
         {
@@ -47,20 +50,29 @@ namespace ContractMonthlyClaimSystem.Controllers
         [HttpPost]
         public IActionResult Login(Login model)
         {
-            managerExample = _userExamples.manager();
+            lecturerExample = _userExamples.Lecturer();
+            coordinatorExample = _userExamples.Coordinator();
+            managerExample = _userExamples.Manager();
             
             if (ModelState.IsValid)
             {
-                foreach (var item in managerExample)
+                var user = managerExample.FirstOrDefault(item => item.Email == model.Email && item.Password == model.Password);
+
+                if (user == null)
                 {
-                    if (model.Email == item.Email && model.Password == item.Password)
-                    {
-                        HttpContext.Session.SetString("Role", item.Role);
-                        return RedirectToAction("ManagerReview", "AcademicManager");
-                    }
+                    user = coordinatorExample.FirstOrDefault(item => item.Email == model.Email && item.Password == model.Password);
                 }
 
-                return RedirectToAction("Index", "Home");
+                if (user == null)
+                {
+                    user = lecturerExample.FirstOrDefault(item => item.Email == model.Email && item.Password == model.Password);
+                }
+
+                if (user != null)
+                {
+                    HttpContext.Session.SetString("Role", user.Role);
+                    return RedirectToAction("ManagerReview", "AcademicManager");
+                }
             }
 
             return View(model);
