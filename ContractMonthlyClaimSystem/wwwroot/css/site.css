@@ -12,6 +12,14 @@ html, body {
     margin: 0;
     padding: 0;
 }
+.wrapper {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    min-height: 100vh; /* Make the wrapper at least the height of the viewport */
+}
+.content{
+        flex: 1; /* Take up remaining vertical space */
+}
 
 
 
@@ -105,3 +113,14 @@ html, body {
         border-radius: 5px;
         padding: 8px 16px;
     }
+
+
+
+.footer {
+    background-color: #5a5a5a; /* Dark gray */
+    color: white; /* Text color */
+    padding: 20px 0; /* Add padding to top and bottom */
+    text-align: center; /* Center-align text */
+    width: 100vw; /* Full viewport width */
+    margin-top: auto; /* Ensure it pushes to the bottom */
+}

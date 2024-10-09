@@ -4,3 +4,40 @@
 @{
     ViewData["Title"] = "ProgrammeReview";
 }
+<h2>Pending Claims</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Lecturer Name</th>
+            <th>Hours Worked</th>
+            <th>Hourly Rate</th>
+            <th>Submission Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model)
+        {
+            <tr>
+                <td>@claim.LecturerName</td>
+                <td>@claim.HoursWorked</td>
+                <td>@claim.HourlyRate</td>
+                <td>@claim.SubmissionDate</td>
+                <td>@claim.Status</td>
+                <td>
+                    <form asp-action="ApproveClaim" method="post">
+                        <input type="hidden" name="claimId" value="@claim.Id" />
+                        <button type="submit">Approve</button>
+                    </form>
+
+                    <form asp-action="RejectClaim" method="post">
+                        <input type="hidden" name="claimId" value="@claim.Id" />
+                        <button type="submit">Reject</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

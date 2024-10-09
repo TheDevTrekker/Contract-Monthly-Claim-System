@@ -5,8 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
+//Services
 builder.Services.AddScoped<userExamples>();
+builder.Services.AddSingleton<ClaimService>();
+
 // Add session services
 builder.Services.AddSession(options =>
 {

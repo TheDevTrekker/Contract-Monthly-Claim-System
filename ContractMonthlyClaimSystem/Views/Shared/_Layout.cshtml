@@ -39,7 +39,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
-                        @if (Context.Session.GetString("Role") == "Lecturer")
+                        @if (Context.Session.GetString("Role") == "Lecturer" || Context.Session.GetString("Role") == "Dev")
                         {
                             <li class="nav-item">
                                 <a class="nav-link " 
@@ -50,7 +50,7 @@
                                 asp-area="" asp-controller="Lecturer" asp-action="LecturerTrack">Claim Status</a>
                             </li>
                         }
-                        @if (Context.Session.GetString("Role") == "Coordinator")
+                        @if (Context.Session.GetString("Role") == "Coordinator" || Context.Session.GetString("Role") == "Dev")
                         {
                             <li class="nav-item">
                                 <a class="nav-link " asp-area="" asp-controller="Coordinator" asp-action="CoReview">Review Claims</a>
@@ -60,7 +60,7 @@
                             </li>
 
                         }
-                        @if (Context.Session.GetString("Role") == "Manager")
+                        @if (Context.Session.GetString("Role") == "Manager" || Context.Session.GetString("Role") == "Dev")
                         {
                             <li class="nav-item">
                                 <a class="nav-link " asp-area="" asp-controller="AcademicManager" asp-action="ManagerReview">Review Claims</a>
@@ -94,7 +94,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer footer-dark bg-dark text-muted">
+    <footer class="footer footer-dark bg-dark text-muted">
         <div>
             &copy; 2024 - ContractMonthlyClaimSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

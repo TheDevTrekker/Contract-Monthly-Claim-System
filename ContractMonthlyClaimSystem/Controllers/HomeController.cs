@@ -19,7 +19,12 @@ namespace ContractMonthlyClaimSystem.Controllers
             return View();
         }
 
-
+        [HttpGet]
+        public IActionResult Dev()
+        {
+            HttpContext.Session.SetString("Role", "Dev");
+            return View("Index", "Home");
+        }
 
 
 

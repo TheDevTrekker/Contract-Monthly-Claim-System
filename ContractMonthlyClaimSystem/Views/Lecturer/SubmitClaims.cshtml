@@ -1,5 +1,5 @@
 ﻿@using System.IO
-@model ContractMonthlyClaimSystem.Models.Claim
+@model ContractMonthlyClaimSystem.Models.LecturerViewModel
 @{
     ViewData["Title"] = "SubmitClaims";
 }
@@ -17,8 +17,8 @@
 
         .btn-submit:hover {
             color: white !important;
-            background-color: darkgreen !important;
-            border-color: darkgreen !important;
+            background-color: #004d00 !important;
+            border-color: #004d00 !important;
             transform: scale(1.05) !important;
         }
 
@@ -27,24 +27,24 @@
 <h2>Submit Claim</h2>
 <form asp-action="SubmitClaimPost" method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label asp-for="HoursWorked" class="control-label"></label>
-        <input asp-for="HoursWorked" class="form-control" />
-        <span asp-validation-for="HoursWorked" class="text-danger"></span>
+        <label asp-for="NewClaim.HoursWorked" class="control-label"></label>
+        <input asp-for="NewClaim.HoursWorked" class="form-control" />
+        <span asp-validation-for="NewClaim.HoursWorked" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="HourlyRate" class="control-label"></label>
-        <input asp-for="HourlyRate" class="form-control" />
-        <span asp-validation-for="HourlyRate" class="text-danger"></span>
+        <label asp-for="NewClaim.HourlyRate" class="control-label"></label>
+        <input asp-for="NewClaim.HourlyRate" class="form-control" />
+        <span asp-validation-for="NewClaim.HourlyRate" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Notes" class="control-label"></label>
-        <textarea asp-for="Notes" class="form-control"></textarea>
-        <span asp-validation-for="Notes" class="text-danger"></span>
+        <label asp-for="NewClaim.Notes" class="control-label"></label>
+        <textarea asp-for="NewClaim.Notes" class="form-control"></textarea>
+        <span asp-validation-for="NewClaim.Notes" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="SupportingDocument" class="control-label"></label>
-        <input type="file" asp-for="SupportingDocument" class="form-control" />
-        <span asp-validation-for="SupportingDocument" class="text-danger"></span>
+        <label asp-for="NewClaim.SupportingDocument" class="control-label"></label>
+        <input type="file" asp-for="NewClaim.SupportingDocument" class="form-control" />
+        <span asp-validation-for="NewClaim.SupportingDocument" class="text-danger"></span>
     </div>
     <div class="form-group">
         <input type="submit" value="Submit" class="btn btn-submit" />
@@ -54,31 +54,27 @@
 <hr />
 
 <h3>Submitted Claims</h3>
-@if (ViewBag.Claims != null && ViewBag.Claims.Count > 0)
+@if (Model.SubmittedClaims != null && Model.SubmittedClaims.Count > 0)
 {
-    <table class="table">
+    <table>
         <thead>
             <tr>
                 <th>Hours Worked</th>
                 <th>Hourly Rate</th>
+                <th>Submission Date</th>
+                <th>Status</th>
                 <th>Notes</th>
-                <th>Supporting Document</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var claim in ViewBag.Claims)
+            @foreach (var claim in Model.SubmittedClaims)
             {
                 <tr>
                     <td>@claim.HoursWorked</td>
                     <td>@claim.HourlyRate</td>
+                    <td>@claim.SubmissionDate.ToString("MM/dd/yyyy")</td>
+                    <td>@claim.Status</td>
                     <td>@claim.Notes</td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(claim.SupportingDocumentPath))
-                        {
-                            var fileName = claim.SupportingDocumentPath.Substring(claim.SupportingDocumentPath.LastIndexOf('/') + 1); 
-                            <a href="~/uploads/@claim.SupportingDocumentPath" download>@fileName</a>
-                        }
-                    </td>
                 </tr>
             }
         </tbody>
@@ -89,8 +85,7 @@ else
     <p>No claims submitted yet.</p>
 }
 
-<div class="bottom-seciton">
-</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

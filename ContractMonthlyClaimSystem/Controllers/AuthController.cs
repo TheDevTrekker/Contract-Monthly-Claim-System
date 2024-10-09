@@ -42,6 +42,8 @@ namespace ContractMonthlyClaimSystem.Controllers
         }
 
 
+
+
         [HttpPost]
         public IActionResult Register(Register model)
         {

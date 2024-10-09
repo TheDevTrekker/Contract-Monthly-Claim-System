@@ -7,62 +7,104 @@ namespace ContractMonthlyClaimSystem.Controllers
     public class LecturerController : Controller
     {
         private readonly IWebHostEnvironment _environment;
-        private static List<ContractMonthlyClaimSystem.Models.Claim> _submittedClaims = new List<ContractMonthlyClaimSystem.Models.Claim>();
+        
 
-        public LecturerController(IWebHostEnvironment environment)
+        private readonly ClaimService _claimService;
+        public LecturerController(IWebHostEnvironment environment, ClaimService claimservice)
         {
             _environment = environment;
+            _claimService = claimservice;
         }
 
         // Display the Claim Submission Form
         [HttpGet]
         public IActionResult SubmitClaims()
         {
-            ViewBag.Claims = _submittedClaims;
+            var lecturerName = HttpContext.Session.GetString("Name");
+            // Show the submitted claims by the logged-in lecturer
+            var submittedClaims = _claimService.GetAllClaims().Where(c => c.LecturerName == lecturerName).ToList();
+
+            var viewModel = new LecturerViewModel
+            {
+                SubmittedClaims = submittedClaims
+            };
+
+            // Pass the view model to the view
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult LecturerTrack()
+        {
             return View();
         }
 
         // Handle form submission
         [HttpPost]
-        public async Task<IActionResult> SubmitClaimPost(ContractMonthlyClaimSystem.Models.Claim model)
+        public async Task<IActionResult> SubmitClaimPost(LecturerViewModel model)
         {
+            var lecturerName = HttpContext.Session.GetString("Name");
+            model.NewClaim.LecturerName = lecturerName;
+            model.NewClaim.SubmissionDate = DateTime.Now;
+            model.NewClaim.Status = "Pending"; // Set default status
+
             if (ModelState.IsValid)
             {
                 // Save file if there is one
-                if (model.SupportingDocument != null)
+                if (model.NewClaim.SupportingDocument != null)
                 {
                     var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
                     Directory.CreateDirectory(uploadsFolder);
 
-                    var uniqueFileName = Path.GetFileNameWithoutExtension(model.SupportingDocument.FileName)
+                    var uniqueFileName = Path.GetFileNameWithoutExtension(model.NewClaim.SupportingDocument.FileName)
                                          + "_" + Path.GetRandomFileName()
-                                         + Path.GetExtension(model.SupportingDocument.FileName);
+                                         + Path.GetExtension(model.NewClaim.SupportingDocument.FileName);
 
                     var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    try
                     {
-                        await model.SupportingDocument.CopyToAsync(fileStream);
-                    }
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await model.NewClaim.SupportingDocument.CopyToAsync(fileStream);
+                        }
 
-                    model.SupportingDocumentPath = uniqueFileName; // Save path for display
+                        model.NewClaim.SupportingDocumentPath = "/uploads/" + uniqueFileName; // Save the path for display
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("", "File upload failed: " + ex.Message);
+                        model.SubmittedClaims = _claimService.GetAllClaims().Where(c => c.LecturerName == lecturerName).ToList();
+                        return View("SubmitClaims", model); // Return to the view with the error
+                    }
                 }
 
-                _submittedClaims.Add(model); // Add the model to the list for runtime display
+                // Add the claim to the service
+                _claimService.AddClaim(model.NewClaim);
 
+                // Redirect back to the claims page
                 return RedirectToAction("SubmitClaims");
             }
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    // Log or inspect errors
+                    Console.WriteLine(error.ErrorMessage);
+                }
+            }
 
-            ViewBag.Claims = _submittedClaims;
-            return View("SubmitClaims", model);
+            // If model state is invalid, reload the list of submitted claims
+            model.SubmittedClaims = _claimService.GetAllClaims().Where(c => c.LecturerName == lecturerName).ToList();
+
+            return View("SubmitClaims", model); // Return to the view with the current model
         }
 
 
-        // Claim submitted confirmation
-        public IActionResult ClaimSubmitted()
-        {
-            return View();
-        }
+
+
+
     }
 }
 
