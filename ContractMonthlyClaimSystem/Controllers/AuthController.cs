@@ -34,6 +34,13 @@ namespace ContractMonthlyClaimSystem.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
+
 
         [HttpPost]
         public IActionResult Register(Register model)
@@ -70,8 +77,10 @@ namespace ContractMonthlyClaimSystem.Controllers
 
                 if (user != null)
                 {
+                    HttpContext.Session.SetString("Name", user.FullName);
+                    HttpContext.Session.SetString("Email", user.Email);
                     HttpContext.Session.SetString("Role", user.Role);
-                    return RedirectToAction("ManagerReview", "AcademicManager");
+                    return RedirectToAction("Index", "Home");
                 }
             }
 

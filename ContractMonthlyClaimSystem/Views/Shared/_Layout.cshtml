@@ -10,41 +10,80 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Contract Monthly Claim System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand me-2" href="/Home">
+                    <img
+                        src="/images/claimsLogo.png"
+                        height="50"
+                        alt="Logo"
+                        loading="lazy"
+                         style="filter: brightness(0) invert(1);" 
+                     />
+                </a>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
+                <button data-mdb-collapse-init
+                        class="navbar-toggler"
+                        type="button"
+                        data-mdb-target="#navbarButtonsExample"
+                        aria-controls="navbarButtonsExample"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                    <!-- Left links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
 
                         @if (Context.Session.GetString("Role") == "Lecturer")
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Lecturer" asp-action="SubmitClaims">Submit Claim</a>
+                                <a class="nav-link " 
+                                asp-area="" asp-controller="Lecturer" asp-action="SubmitClaims">Submit Claim</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " 
+                                asp-area="" asp-controller="Lecturer" asp-action="LecturerTrack">Claim Status</a>
                             </li>
                         }
-                        @if(Context.Session.GetString("Role") == "Coordinator")
+                        @if (Context.Session.GetString("Role") == "Coordinator")
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Coordinator" asp-action="CoReview">Review Claims</a>
+                                <a class="nav-link " asp-area="" asp-controller="Coordinator" asp-action="CoReview">Review Claims</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Coordinator" asp-action="CoTrack">Claim Status</a>
                             </li>
 
                         }
-                        @if(Context.Session.GetString("Role") == "Manager")
+                        @if (Context.Session.GetString("Role") == "Manager")
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="AcademicManager" asp-action="ManagerReview">Review Claims</a>
+                                <a class="nav-link " asp-area="" asp-controller="AcademicManager" asp-action="ManagerReview">Review Claims</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="AcademicManager" asp-action="ManagerTrack">Claim Status</a>
                             </li>
                         }
-                        
                     </ul>
+
+                    @if (Context.Session.GetString("Role") == null)
+                    {
+                        <div class="d-flex align-items-center">
+                            <a class="btn btn-link nav-link-style" href="/Auth/Login">Login</a>
+                            <a class="btn btn-nav" href="/Auth/Register">Sign up for free</a>
+                        </div>
+                    }
+                    else{
+                        <div class="d-flex align-items-center">
+                            <p class="text-white mb-0 me-2" style="font-size:12px;">Welcome @Context.Session.GetString("Name")</p>
+                            <a class="btn btn-logout" href="/Auth/Logout">Logout</a>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>
@@ -55,8 +94,8 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    <footer class="border-top footer footer-dark bg-dark text-muted">
+        <div>
             &copy; 2024 - ContractMonthlyClaimSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>

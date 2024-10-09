@@ -3,42 +3,144 @@
 }
 
 <style>
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
+    .hero-section {
+        background-color: dodgerblue;
+        color: black;
+        text-align: center;
+        padding: 30px 20px;
+        border-radius: 0 0 50% 50% / 0 0 10% 10%;
+        position: relative;
+        width: 100vw; /* Make sure it takes full viewport width */
+        left: 50%; /* Center it horizontally */
+        right: 50%; /* Center it horizontally */
+        margin-left: -50vw; /* Pull it back half of the viewport width */
+        margin-right: -50vw; /* Pull it back half of the viewport width */
     }
 
-    .lead {
-        font-size: 1.25em;
-        margin-bottom: 20px;
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+
+    /* Section for features */
+    .features-section {
+        background-color: #ffffff;
+        text-align: center;
+        padding: 0px 0px;
     }
 
-    .btn {
-        width: 200px;
+        .features-section h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+    .feature-item {
+        display: inline-block;
+        width: 30%;
+        vertical-align: top;
     }
+
+        .feature-item img {
+            width: 300px;
+            margin-bottom: 10px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .feature-item p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .btn-white{
+            margin-top: 30px !important;       
+            color: white !important;
+            border-color: white !important;
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            border-radius: 30px !important;
+            width: 10% !important;
+        }
+
+            .btn-white:hover {
+                color: black !important;
+                background-color: white !important;
+                border-color: dodgerblue !important;
+            }
 </style>
 
-@if(Context.Session.GetString("Role") == null)
+@if (Context.Session.GetString("Role") == null)
 {
-    <div class="container text-center">
-        <h1 class="display-4">Claims Management System</h1>
-        <p class="lead">Welcome to the Claims Management System! This application simplifies the process of submitting, approving, and tracking claims for lecturers. Our goal is to enhance efficiency with a user-friendly interface.</p>
+    <div class="hero-section">
+        <h1>Discover and Share the Best Claims</h1>
+        <p>Effortlessly manage and track your claims with our streamlined platform. Connect with coordinators and managers for faster approvals.</p>
+        <a href="/Auth/Register" class="btn btn-white" style="margin-bottom:50px;">Sign up</a>
+    </div>
 
-        <div class="mt-4">
-            <h1 class="display-4">Please Login/Register to continue</h1>
-            <a class="btn btn-primary btn-lg m-2" href="/Auth/Login">Login</a>
-            <a class="btn btn-secondary btn-lg m-2" href="/Auth/Register">Register</a>
+    <div class="features-section">
+        <div class="feature-item">
+            <img src="/images/Growth.png" alt="Growth">
+            <h3>Streamlined Submissions</h3>
+            <p>Submit your claims in just a few clicks and get real-time feedback on your claim status.</p>
+        </div>
+        <div class="feature-item">
+            <img src="/images/Carreer.png" alt="Career">
+            <h3>Approval Tracking</h3>
+            <p>Easily track claim approvals from coordinators and managers, ensuring a smooth process.</p>
+        </div>
+        <div class="feature-item">
+            <img src="/images/Insight.png" alt="Insight">
+            <h3>Insightful Reports</h3>
+            <p>Gain insights into your claim history and performance, helping you stay organized.</p>
         </div>
     </div>
 }
 else
 {
-    <div class="container text-center">
-        <h1 class="display-4">Claims Management System</h1>
-        <p class="lead">Welcome to the Claims Management System! This application simplifies the process of submitting, approving, and tracking claims for lecturers. Our goal is to enhance efficiency with a user-friendly interface.</p>
-
+    <div class="hero-section">
+        <h1>Discover and Share the Best Claims</h1>
+        <p>Effortlessly manage and track your claims with our streamlined platform. Connect with coordinators and managers for faster approvals.</p>
+        <br><br>
+        <div>
+                @if (Context.Session.GetString("Role") == "Lecturer")
+                {
+                <h2 style="font-weight: bold;">What would you like to do?</h2>
+                <a class="btn btn-white btn-lg m-2" href="/Lecturer/SubmitClaims">Submit a Claim</a>
+                <a class="btn btn-white btn-lg m-2" href="/Lecturer/LecturerTrack">Track My Claims</a>
+                }
+                else if (Context.Session.GetString("Role") == "Coordinator")
+                {
+                <h2 style="font-weight: bold;">What would you like to do?</h2>
+                <a class="btn btn-white btn-lg m-2" href="/Coordinator/CoReview">Pending Approvals</a>
+                <a class="btn btn-white btn-lg m-2" href="/Coordinator/CoTrack">Track All Claims</a>
+                }
+                else if (Context.Session.GetString("Role") == "Manager")
+                {
+                <h2 style="font-weight: bold; margin-bottom:-20px;">What would you like to do?</h2>
+                <a class="btn btn-white btn-lg m-2" href="/Manager/ManagerReview">Claims Overview</a>
+                <a class="btn btn-white btn-lg m-2" href="/Manager/ManagerTrack">Track All Claims</a>
+                }
+        </div>
+        <h3 style="margin-top:10px;margin-bottom:-10px;">You are logged in as, @Context.Session.GetString("Role")</h3>
     </div>
+    <div class="features-section">
+        <div class="feature-item">
+            <img src="/images/Success.png" alt="Success">
+            <p>Submit your claims in just a few clicks and get real-time feedback on your claim status.</p>
+        </div>
+    </div>
+  
 }
 
 

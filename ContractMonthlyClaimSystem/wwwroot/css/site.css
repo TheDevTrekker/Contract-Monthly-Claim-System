@@ -1,6 +1,4 @@
-html {
-  font-size: 14px;
-}
+
 
 @media (min-width: 768px) {
   html {
@@ -8,15 +6,101 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+
+
+.btn-blue {
+    color: dodgerblue !important;
+    border-color: dodgerblue !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    border-radius: 30px !important;
+    transition: background-color 0.3s ease, transform 0.3s ease !important;
+    width: 100% !important;
 }
 
-body {
-  margin-bottom: 60px;
+    .btn-blue:hover {
+        color: white !important;
+        background-color: dodgerblue !important;
+        border-color: dodgerblue !important;
+        transform: scale(1.05) !important;
+    }
+
+.btn-nav {
+    color: white !important;
+    border-color: dodgerblue !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    border-radius: 30px !important;
+    transition: background-color 0.3s ease, transform 0.3s ease !important;
+    width: 100% !important;
 }
+
+    .btn-nav:hover {
+        background-color: dodgerblue !important;
+        border-color: dodgerblue !important;
+        transform: scale(1.05) !important;
+    }
+
+    .btn-logout{
+        color: red !important;
+        border-color: red !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        border-radius: 30px !important;
+        transition: background-color 0.3s ease, transform 0.3s ease !important;
+        width: 100% !important;
+    }
+
+        .btn-logout:hover {
+            color: white !important;
+            background-color: red !important;
+        }
+
+    .nav-link-style{
+        color: white !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        border-radius: 30px !important;
+        transition: background-color 0.3s ease, transform 0.3s ease !important;
+    }
+
+        .nav-link-style:hover {
+            color: dodgerblue !important;
+            transform: scale(1.05) !important;
+        }
+
+.d-flex.align-items-center {
+    display: flex;
+    align-items: center; /* Vertically center-align items */
+}
+
+.text-white {
+    margin-bottom: 0; /* Remove bottom margin to avoid extra space */
+}
+
+
+/* Navbar link color */
+.navbar-nav .nav-link {
+    color: white !important;
+    transition: color 0.3s ease;
+}
+
+    /* Hover effect */
+    .navbar-nav .nav-link:hover {
+        color: #a9a9a9 !important; /* Light gray */
+    }
+
+    /* Active link styling */
+    .navbar-nav .nav-link.active {
+        color: #ffffff !important;
+        background-color: #5a5a5a; /* Dark gray for contrast */
+        border-radius: 5px;
+        padding: 8px 16px;
+    }
