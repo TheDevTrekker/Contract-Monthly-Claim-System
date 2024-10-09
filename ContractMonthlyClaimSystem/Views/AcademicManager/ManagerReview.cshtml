@@ -1,6 +1,65 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     ViewData["Title"] = "ManagerReview";
 }
+<h2>Pending Claims</h2>
+
+<table class="table table-striped table-bordered mt-4">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Submission Date</th>
+            <th>Lecturer Name</th>
+            <th>Hours Worked</th>
+            <th>Hourly Rate</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>File</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count == 0)
+        {
+            <tr>
+                <td colspan="9">No claims to review</td>
+            </tr>
+        }
+        @foreach (var claim in Model)
+        {
+            <tr>
+                <td>@claim.Id</td>
+                <td>@claim.SubmissionDate.ToString("MM/dd/yyyy")</td>
+                <td>@claim.LecturerName</td>
+                <td>@claim.HoursWorked</td>
+                <td>@claim.HourlyRate</td>
+                <td>R @claim.HoursWorked*@claim.HourlyRate</td>
+                <td>@claim.Status</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(claim.SupportingDocumentPath))
+                    {
+                        var filePathParts = claim.SupportingDocumentPath.Split('/');
+                        var fileName = filePathParts[filePathParts.Length - 1];
+                        <a href="@Url.Content(claim.SupportingDocumentPath)" target="_blank">@fileName</a>
+                    }
+                    else
+                    {
+                        <span>No file</span>
+                    }
+                </td>
+                <td>
+                    <div class="d-flex gap-2">
+                        <form asp-action="ApproveClaim" method="post" class="m-0">
+                            <input type="hidden" name="claimId" value="@claim.Id" />
+                            <button type="submit" class="btn btn-success">Approve</button>
+                        </form>
+
+                        <form asp-action="RejectClaim" method="post" class="m-0">
+                            <input type="hidden" name="claimId" value="@claim.Id" />
+                            <button type="submit" class="btn btn-danger">Reject</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

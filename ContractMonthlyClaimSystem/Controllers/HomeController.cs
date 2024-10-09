@@ -16,6 +16,7 @@ namespace ContractMonthlyClaimSystem.Controllers
         public IActionResult Index()
         {
             string role = HttpContext.Session.GetString("Role");
+            HttpContext.Session.SetString("Name", "Pielie pielie");
             return View();
         }
 

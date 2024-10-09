@@ -18,6 +18,14 @@ namespace ContractMonthlyClaimSystem.Controllers
             return View(pendingClaims);
         }
 
+        public IActionResult CoReport()
+        {
+            var approvedClaims = _claimService.GetClaimsByStatus("Approved by Coordinator");
+            var rejectedClaims = _claimService.GetClaimsByStatus("Rejected by Coordinator");
+
+            return View();
+        }
+
         [HttpPost]
         public IActionResult ApproveClaim(int claimId)
         {
@@ -27,7 +35,7 @@ namespace ContractMonthlyClaimSystem.Controllers
                 claim.Status = "Approved by Coordinator";
             }
 
-            return RedirectToAction("PendingClaims");
+            return RedirectToAction("CoReview");
         }
 
         [HttpPost]
@@ -39,7 +47,7 @@ namespace ContractMonthlyClaimSystem.Controllers
                 claim.Status = "Rejected by Coordinator";
             }
 
-            return RedirectToAction("PendingClaims");
+            return RedirectToAction("CoReview");
         }
     }
 }

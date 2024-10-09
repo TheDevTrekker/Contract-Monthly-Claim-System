@@ -1,0 +1,166 @@
+﻿@model ContractMonthlyClaimSystem.Models.LecturerViewModel
+@{
+    ViewData["Title"] = "Report";
+}
+
+<style>
+    .claims-section {
+        margin-bottom: 30px;
+    }
+</style>
+
+<h1>Claims Report</h1>
+
+<div class="claims-section">
+    <h3>Pending Claims</h3>
+    @if (Model.PendingClaims.Any())
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Submission Date</th>
+                    <th>Lecturer Name</th>
+                    <th>Hours Worked</th>
+                    <th>Hourly Rate</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claim in Model.PendingClaims)
+                {
+                    <tr>
+                        <td>@claim.Id</td>
+                        <td>@claim.LecturerName</td>
+                        <td>@claim.HoursWorked</td>
+                        <td>@claim.HourlyRate</td>
+                        <td>R @(claim.HoursWorked * claim.HourlyRate)</td>
+                        <td>@claim.SubmissionDate.ToString("MM/dd/yyyy")</td>
+                        <td>@claim.Status</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(claim.SupportingDocumentPath))
+                            {
+                                var filePathParts = claim.SupportingDocumentPath.Split('/');
+                                var fileName = filePathParts[filePathParts.Length - 1];
+                                <a href="@Url.Content(claim.SupportingDocumentPath)" target="_blank">@fileName</a>
+                            }
+                            else
+                            {
+                                <span>No file</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No pending claims.</p>
+    }
+</div>
+
+<div class="claims-section">
+    <h3>Approved Claims</h3>
+    @if (Model.ApprovedClaims.Any())
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Submission Date</th>
+                    <th>Lecturer Name</th>
+                    <th>Hours Worked</th>
+                    <th>Hourly Rate</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claim in Model.ApprovedClaims)
+                {
+                    <tr>
+                        <td>@claim.Id</td>
+                        <td>@claim.LecturerName</td>
+                        <td>@claim.HoursWorked</td>
+                        <td>@claim.HourlyRate</td>
+                        <td>R @(claim.HoursWorked * claim.HourlyRate)</td>
+                        <td>@claim.SubmissionDate.ToString("MM/dd/yyyy")</td>
+                        <td>@claim.Status</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(claim.SupportingDocumentPath))
+                            {
+                                var filePathParts = claim.SupportingDocumentPath.Split('/');
+                                var fileName = filePathParts[filePathParts.Length - 1];
+                                <a href="@Url.Content(claim.SupportingDocumentPath)" target="_blank">@fileName</a>
+                            }
+                            else
+                            {
+                                <span>No file</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No approved claims.</p>
+    }
+</div>
+
+<div class="claims-section">
+    <h3>Rejected Claims</h3>
+    @if (Model.RejectedClaims.Any())
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Submission Date</th>
+                    <th>Lecturer Name</th>
+                    <th>Hours Worked</th>
+                    <th>Hourly Rate</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claim in Model.RejectedClaims)
+                {
+                    <tr>
+                        <td>@claim.Id</td>
+                        <td>@claim.LecturerName</td>
+                        <td>@claim.HoursWorked</td>
+                        <td>@claim.HourlyRate</td>
+                        <td>R @(claim.HoursWorked * claim.HourlyRate)</td>
+                        <td>@claim.SubmissionDate.ToString("MM/dd/yyyy")</td>
+                        <td>@claim.Status</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(claim.SupportingDocumentPath))
+                            {
+                                var filePathParts = claim.SupportingDocumentPath.Split('/');
+                                var fileName = filePathParts[filePathParts.Length - 1];
+                                <a href="@Url.Content(claim.SupportingDocumentPath)" target="_blank">@fileName</a>
+                            }
+                            else
+                            {
+                                <span>No file</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No rejected claims.</p>
+    }
+</div>
+

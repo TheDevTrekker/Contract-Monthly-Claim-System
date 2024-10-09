@@ -56,25 +56,42 @@
 <h3>Submitted Claims</h3>
 @if (Model.SubmittedClaims != null && Model.SubmittedClaims.Count > 0)
 {
-    <table>
-        <thead>
+    <table class="table table-striped table-bordered mt-4">
+        <thead class="table-dark">
             <tr>
+                <th>ID</th>
+                <th>Submission Date</th>
                 <th>Hours Worked</th>
                 <th>Hourly Rate</th>
-                <th>Submission Date</th>
-                <th>Status</th>
+                <th>Total Price</th>
                 <th>Notes</th>
+                <th>Status</th>
+                <th>File</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var claim in Model.SubmittedClaims)
             {
                 <tr>
+                    <td>@claim.Id</td>
+                    <td>@claim.SubmissionDate.ToString("MM/dd/yyyy")</td>
                     <td>@claim.HoursWorked</td>
                     <td>@claim.HourlyRate</td>
-                    <td>@claim.SubmissionDate.ToString("MM/dd/yyyy")</td>
-                    <td>@claim.Status</td>
+                    <td>R @(claim.HoursWorked*claim.HourlyRate)</td>
                     <td>@claim.Notes</td>
+                    <td>@claim.Status</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(claim.SupportingDocumentPath))
+                        {
+                            var filePathParts = claim.SupportingDocumentPath.Split('/');
+                            var fileName = filePathParts[^1];
+                            <a href="@Url.Content(claim.SupportingDocumentPath)" target="_blank">@fileName</a>
+                        }
+                        else
+                        {
+                            <span>No file</span>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>

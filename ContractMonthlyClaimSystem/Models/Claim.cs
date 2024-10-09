@@ -6,7 +6,7 @@ namespace ContractMonthlyClaimSystem.Models
     public class Claim
     {
 
-        private static int _nextId = 1; // Static field to keep track of the next ID
+        private static int _nextId = 0; // Static field to keep track of the next ID
         public int Id { get; private set; }
 
         [Required]

@@ -2,7 +2,11 @@
 {
     public class LecturerViewModel
     {
-        // Claim for the form submission
+        public List<Claim> PendingClaims { get; set; }
+        public List<Claim> ApprovedClaims { get; set; }
+        public List<Claim> RejectedClaims { get; set; }
+
+
         public Claim NewClaim { get; set; }
         public List<Claim> SubmittedClaims { get; set; }
 

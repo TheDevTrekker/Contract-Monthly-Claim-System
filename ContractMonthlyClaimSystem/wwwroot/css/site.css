@@ -72,18 +72,7 @@ html, body {
             background-color: red !important;
         }
 
-    .nav-link-style{
-        color: white !important;
-        font-size: 18px !important;
-        font-weight: 600 !important;
-        border-radius: 30px !important;
-        transition: background-color 0.3s ease, transform 0.3s ease !important;
-    }
 
-        .nav-link-style:hover {
-            color: #ffeb3b !important;
-            transform: scale(1.05) !important;
-        }
 
 .d-flex.align-items-center {
     display: flex;
@@ -94,27 +83,30 @@ html, body {
     margin-bottom: 0; /* Remove bottom margin to avoid extra space */
 }
 
+.
 
 /* Navbar link color */
 .navbar-nav .nav-link {
+    margin-right: 30px; /* Add space between links */
     color: white !important;
     transition: color 0.3s ease;
 }
 
     /* Hover effect */
     .navbar-nav .nav-link:hover {
-        color: #a9a9a9 !important; /* Light gray */
+        color: #a9a9a9 !important; 
     }
 
-    /* Active link styling */
-    .navbar-nav .nav-link.active {
-        color: #ffffff !important;
-        background-color: #5a5a5a; /* Dark gray for contrast */
-        border-radius: 5px;
-        padding: 8px 16px;
+.nav-link-style {
+    color: white !important;
+    transition: background-color 0.3s ease, transform 0.3s ease !important;
+}
+
+    /* Hover effect */
+    .nav-link-style:hover {
+        color: #ffeb3b !important; 
+        transform: scale(1.05) !important;
     }
-
-
 
 .footer {
     background-color: #5a5a5a; /* Dark gray */

@@ -34,9 +34,38 @@ namespace ContractMonthlyClaimSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult LecturerTrack()
+        public IActionResult Report()
         {
-            return View();
+            var lecturerName = HttpContext.Session.GetString("Name");
+
+            // Fetch all submitted claims by the logged-in lecturer
+            var submittedClaims = _claimService.GetAllClaims()
+                .Where(c => c.LecturerName == lecturerName)
+                .ToList();
+
+            // Categorize claims by status
+            var pendingClaims = submittedClaims
+                .Where(c => c.Status == "Pending" || c.Status == "Approved by Coordinator")
+                .ToList();
+
+            var approvedClaims = submittedClaims
+                .Where(c => c.Status == "Approved by Manager")
+                .ToList();
+
+            var rejectedClaims = submittedClaims
+                .Where(c => c.Status == "Rejected by Coordinator" || c.Status == "Rejected by Manager")
+                .ToList();
+
+            // Prepare the view model with categorized claims
+            var viewModel = new LecturerViewModel
+            {
+                PendingClaims = pendingClaims,
+                ApprovedClaims = approvedClaims,
+                RejectedClaims = rejectedClaims
+            };
+
+            // Pass the view model to the view
+            return View(viewModel);
         }
 
         // Handle form submission
@@ -48,8 +77,7 @@ namespace ContractMonthlyClaimSystem.Controllers
             model.NewClaim.SubmissionDate = DateTime.Now;
             model.NewClaim.Status = "Pending"; // Set default status
 
-            if (ModelState.IsValid)
-            {
+
                 // Save file if there is one
                 if (model.NewClaim.SupportingDocument != null)
                 {
@@ -84,16 +112,7 @@ namespace ContractMonthlyClaimSystem.Controllers
 
                 // Redirect back to the claims page
                 return RedirectToAction("SubmitClaims");
-            }
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-                foreach (var error in errors)
-                {
-                    // Log or inspect errors
-                    Console.WriteLine(error.ErrorMessage);
-                }
-            }
+
 
             // If model state is invalid, reload the list of submitted claims
             model.SubmittedClaims = _claimService.GetAllClaims().Where(c => c.LecturerName == lecturerName).ToList();
