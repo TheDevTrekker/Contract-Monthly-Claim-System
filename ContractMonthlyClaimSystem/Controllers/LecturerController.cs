@@ -7,6 +7,7 @@ namespace ContractMonthlyClaimSystem.Controllers
     public class LecturerController : Controller
     {
         private readonly IWebHostEnvironment _environment;
+        private static List<ContractMonthlyClaimSystem.Models.Claim> _submittedClaims = new List<ContractMonthlyClaimSystem.Models.Claim>();
 
         public LecturerController(IWebHostEnvironment environment)
         {
@@ -17,6 +18,7 @@ namespace ContractMonthlyClaimSystem.Controllers
         [HttpGet]
         public IActionResult SubmitClaims()
         {
+            ViewBag.Claims = _submittedClaims;
             return View();
         }
 
@@ -43,19 +45,18 @@ namespace ContractMonthlyClaimSystem.Controllers
                         await model.SupportingDocument.CopyToAsync(fileStream);
                     }
 
-                    model.SupportingDocumentPath = uniqueFileName;
+                    model.SupportingDocumentPath = uniqueFileName; // Save path for display
                 }
 
-                // Save the claim to database (placeholder, actual DB saving logic will vary)
-                // _context.Claims.Add(model);
-                // await _context.SaveChangesAsync();
+                _submittedClaims.Add(model); // Add the model to the list for runtime display
 
-                // Redirect to confirmation page or status tracking page
-                return RedirectToAction("ClaimSubmitted");
+                return RedirectToAction("SubmitClaims");
             }
 
-            return View("SubmitClaim", model);
+            ViewBag.Claims = _submittedClaims;
+            return View("SubmitClaims", model);
         }
+
 
         // Claim submitted confirmation
         public IActionResult ClaimSubmitted()

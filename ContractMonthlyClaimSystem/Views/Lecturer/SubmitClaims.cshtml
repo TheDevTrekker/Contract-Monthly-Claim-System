@@ -1,9 +1,30 @@
-﻿@model ContractMonthlyClaimSystem.Models.Claim
+﻿@using System.IO
+@model ContractMonthlyClaimSystem.Models.Claim
 @{
     ViewData["Title"] = "SubmitClaims";
 }
-<h2>Submit Claim</h2>
+<style>
+    .btn-submit {
+        color: white !important;
+        background-color: green !important;
+        border-color: green !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        border-radius: 30px !important;
+        transition: background-color 0.3s ease, transform 0.3s ease !important;
+        margin-top: 20px;
+    }
 
+        .btn-submit:hover {
+            color: white !important;
+            background-color: darkgreen !important;
+            border-color: darkgreen !important;
+            transform: scale(1.05) !important;
+        }
+
+</style>
+
+<h2>Submit Claim</h2>
 <form asp-action="SubmitClaimPost" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="HoursWorked" class="control-label"></label>
@@ -26,10 +47,50 @@
         <span asp-validation-for="SupportingDocument" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <input type="submit" value="Submit" class="btn btn-primary" />
+        <input type="submit" value="Submit" class="btn btn-submit" />
     </div>
 </form>
 
+<hr />
+
+<h3>Submitted Claims</h3>
+@if (ViewBag.Claims != null && ViewBag.Claims.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Hours Worked</th>
+                <th>Hourly Rate</th>
+                <th>Notes</th>
+                <th>Supporting Document</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var claim in ViewBag.Claims)
+            {
+                <tr>
+                    <td>@claim.HoursWorked</td>
+                    <td>@claim.HourlyRate</td>
+                    <td>@claim.Notes</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(claim.SupportingDocumentPath))
+                        {
+                            var fileName = claim.SupportingDocumentPath.Substring(claim.SupportingDocumentPath.LastIndexOf('/') + 1); 
+                            <a href="~/uploads/@claim.SupportingDocumentPath" download>@fileName</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No claims submitted yet.</p>
+}
+
+<div class="bottom-seciton">
+</div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

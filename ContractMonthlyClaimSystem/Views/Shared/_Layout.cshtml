@@ -81,7 +81,7 @@
                     else{
                         <div class="d-flex align-items-center">
                             <p class="text-white mb-0 me-2" style="font-size:12px;">Welcome @Context.Session.GetString("Name")</p>
-                            <a class="btn btn-logout" href="/Auth/Logout">Logout</a>
+                            <a class="btn btn-logout" href="#" onclick="confirmLogout()">Logout</a>
                         </div>
                     }
                 </div>
@@ -99,6 +99,15 @@
             &copy; 2024 - ContractMonthlyClaimSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    <script>
+        function confirmLogout() {
+            if (confirm("Are you sure you want to logout?")) {
+                window.location.href = "/Auth/Logout";
+            }
+        }
+    </script>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

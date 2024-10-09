@@ -4,7 +4,7 @@
 
 <style>
     .hero-section {
-        background-color: dodgerblue;
+        background-color: #ffeb3b;
         color: black;
         text-align: center;
         padding: 30px 20px;
@@ -65,8 +65,8 @@
 
         .btn-white{
             margin-top: 30px !important;       
-            color: white !important;
-            border-color: white !important;
+            color: black !important;
+            border-color: black !important;
             font-size: 18px !important;
             font-weight: 600 !important;
             border-radius: 30px !important;
@@ -74,16 +74,17 @@
         }
 
             .btn-white:hover {
-                color: black !important;
-                background-color: white !important;
-                border-color: dodgerblue !important;
+                color: white !important;
+                background-color: black !important;
+                border-color: black !important;
             }
+
 </style>
 
 @if (Context.Session.GetString("Role") == null)
 {
     <div class="hero-section">
-        <h1>Discover and Share the Best Claims</h1>
+        <h1>Contract Monthly Claim System</h1>
         <p>Effortlessly manage and track your claims with our streamlined platform. Connect with coordinators and managers for faster approvals.</p>
         <a href="/Auth/Register" class="btn btn-white" style="margin-bottom:50px;">Sign up</a>
     </div>
@@ -109,35 +110,46 @@
 else
 {
     <div class="hero-section">
-        <h1>Discover and Share the Best Claims</h1>
-        <p>Effortlessly manage and track your claims with our streamlined platform. Connect with coordinators and managers for faster approvals.</p>
-        <br><br>
+
+        <h1>Welcome Back, @Context.Session.GetString("Name")!</h1>
+        <p>Your role: @Context.Session.GetString("Role")</p>
+        <br>
+        
+        
         <div>
                 @if (Context.Session.GetString("Role") == "Lecturer")
                 {
-                <h2 style="font-weight: bold;">What would you like to do?</h2>
+                <h2 style="margin-bottom: -20px;">What would you like to do?</h2>
                 <a class="btn btn-white btn-lg m-2" href="/Lecturer/SubmitClaims">Submit a Claim</a>
                 <a class="btn btn-white btn-lg m-2" href="/Lecturer/LecturerTrack">Track My Claims</a>
                 }
                 else if (Context.Session.GetString("Role") == "Coordinator")
                 {
-                <h2 style="font-weight: bold;">What would you like to do?</h2>
+                <h2>What would you like to do?</h2>
                 <a class="btn btn-white btn-lg m-2" href="/Coordinator/CoReview">Pending Approvals</a>
                 <a class="btn btn-white btn-lg m-2" href="/Coordinator/CoTrack">Track All Claims</a>
                 }
                 else if (Context.Session.GetString("Role") == "Manager")
                 {
-                <h2 style="font-weight: bold; margin-bottom:-20px;">What would you like to do?</h2>
+                <h2>What would you like to do?</h2>
                 <a class="btn btn-white btn-lg m-2" href="/Manager/ManagerReview">Claims Overview</a>
                 <a class="btn btn-white btn-lg m-2" href="/Manager/ManagerTrack">Track All Claims</a>
                 }
         </div>
-        <h3 style="margin-top:10px;margin-bottom:-10px;">You are logged in as, @Context.Session.GetString("Role")</h3>
     </div>
+
     <div class="features-section">
+        <p style="margin-top: 50px; margin-bottom: -20px;">Let us know if you have any queries, ideas, or concers. We are here to assist you.</p>
         <div class="feature-item">
-            <img src="/images/Success.png" alt="Success">
-            <p>Submit your claims in just a few clicks and get real-time feedback on your claim status.</p>
+            <img src="/images/Feedback.png" alt="Review">
+            <h3>Review</h3>
+            <p>Please feel free to leave a review on our services.</p>
+        </div>
+        <div class="feature-item">
+            <img src="/images/Email.png" alt="Career">
+            <h3>Contact us</h3>
+            <p><strong>Email:</strong> <a href="mailto:st10268524@vcconnect.edu.za">st10268524@vcconnect.edu.za</a></p>
+            
         </div>
     </div>
   

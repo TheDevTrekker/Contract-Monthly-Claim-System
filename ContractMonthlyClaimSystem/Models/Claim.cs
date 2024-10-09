@@ -10,16 +10,16 @@ namespace ContractMonthlyClaimSystem.Models
         public int HoursWorked { get; set; }
 
         [Required]
-        [Range(10, 1000, ErrorMessage = "Please enter a valid hourly rate.")]
+        [Range(0, 1000, ErrorMessage = "Please enter a valid hourly rate.")]
         public decimal HourlyRate { get; set; }
 
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         // This property is for uploading a file (supporting document)
         [Display(Name = "Supporting Document")]
-        public IFormFile SupportingDocument { get; set; }
+        public IFormFile? SupportingDocument { get; set; }
 
         // This property will store the path of the uploaded file
-        public string SupportingDocumentPath { get; set; }
+        public string? SupportingDocumentPath { get; set; }
     }
 }

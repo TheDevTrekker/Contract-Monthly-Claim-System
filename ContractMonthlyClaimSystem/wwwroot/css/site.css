@@ -15,9 +15,9 @@ html, body {
 
 
 
-.btn-blue {
-    color: dodgerblue !important;
-    border-color: dodgerblue !important;
+.btn-yellow {
+    color: black !important;
+    border-color: black !important;
     font-size: 18px !important;
     font-weight: 600 !important;
     border-radius: 30px !important;
@@ -25,16 +25,16 @@ html, body {
     width: 100% !important;
 }
 
-    .btn-blue:hover {
-        color: white !important;
-        background-color: dodgerblue !important;
-        border-color: dodgerblue !important;
+    .btn-yellow:hover {
+        color: black !important;
+        background-color: #ffeb3b !important;
+        border-color: #ffeb3b !important;
         transform: scale(1.05) !important;
     }
 
 .btn-nav {
-    color: white !important;
-    border-color: dodgerblue !important;
+    color: #ffeb3b !important;
+    border-color: #ffeb3b !important;
     font-size: 18px !important;
     font-weight: 600 !important;
     border-radius: 30px !important;
@@ -43,17 +43,18 @@ html, body {
 }
 
     .btn-nav:hover {
-        background-color: dodgerblue !important;
-        border-color: dodgerblue !important;
+        color: black !important;
+        background-color: #ffeb3b !important;
+        border-color: #ffeb3b !important;
         transform: scale(1.05) !important;
     }
 
     .btn-logout{
-        color: red !important;
+        color: white !important;
         border-color: red !important;
         font-size: 18px !important;
         font-weight: 600 !important;
-        border-radius: 30px !important;
+        border-radius: 20px !important;
         transition: background-color 0.3s ease, transform 0.3s ease !important;
         width: 100% !important;
     }
@@ -72,7 +73,7 @@ html, body {
     }
 
         .nav-link-style:hover {
-            color: dodgerblue !important;
+            color: #ffeb3b !important;
             transform: scale(1.05) !important;
         }
 
