@@ -11,7 +11,7 @@ namespace ContractMonthlyClaimSystem.Models
 
         [Required]
         [Range(1, 100, ErrorMessage = "Please enter a valid number of hours.")]
-        public int HoursWorked { get; set; }
+        public decimal HoursWorked { get; set; }
 
         [Required]
         [Range(0, 1000, ErrorMessage = "Please enter a valid hourly rate.")]

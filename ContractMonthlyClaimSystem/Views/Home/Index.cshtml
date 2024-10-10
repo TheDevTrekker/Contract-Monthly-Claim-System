@@ -59,6 +59,7 @@
         }
 
         .feature-item p {
+            margin-top: -10px;
             font-size: 1rem;
             color: #666;
         }
@@ -87,7 +88,10 @@
         <h1>Contract Monthly Claim System</h1>
         <p>Effortlessly manage and track your claims with our streamlined platform. Connect with coordinators and managers for faster approvals.</p>
         <a href="/Auth/Register" class="btn btn-white" style="margin-bottom:50px;">Sign up</a>
-        <a href="/Home/Dev" class"btn btn-white">Dev</a>
+        <br>
+        <a href="/Home/LecturerAcc" class="btn btn-white" style="margin-top: -50px !important;">Lecturer</a>
+        <a href="/Home/CoordinatorAcc" class="btn btn-white" style="margin-top: -50px !important;">Coordinator</a>
+        <a href="/Home/ManagerAcc" class="btn btn-white" style="margin-top: -50px !important;">Manager</a>
     </div>
 
     <div class="features-section">
@@ -122,19 +126,19 @@ else
                 {
                 <h2 style="margin-bottom: -20px;">What would you like to do?</h2>
                 <a class="btn btn-white btn-lg m-2" href="/Lecturer/SubmitClaims">Submit a Claim</a>
-                <a class="btn btn-white btn-lg m-2" href="/Lecturer/LecturerTrack">Track My Claims</a>
+                <a class="btn btn-white btn-lg m-2" href="/Lecturer/Report">Track My Claims</a>
                 }
                 else if (Context.Session.GetString("Role") == "Coordinator")
                 {
                 <h2>What would you like to do?</h2>
                 <a class="btn btn-white btn-lg m-2" href="/Coordinator/CoReview">Pending Approvals</a>
-                <a class="btn btn-white btn-lg m-2" href="/Coordinator/CoTrack">Track All Claims</a>
+                <a class="btn btn-white btn-lg m-2" href="/Coordinator/CoReport">Track All Claims</a>
                 }
                 else if (Context.Session.GetString("Role") == "Manager")
                 {
                 <h2>What would you like to do?</h2>
                 <a class="btn btn-white btn-lg m-2" href="/Manager/ManagerReview">Claims Overview</a>
-                <a class="btn btn-white btn-lg m-2" href="/Manager/ManagerTrack">Track All Claims</a>
+                <a class="btn btn-white btn-lg m-2" href="/Manager/ManagerReport">Track All Claims</a>
                 }
         </div>
     </div>

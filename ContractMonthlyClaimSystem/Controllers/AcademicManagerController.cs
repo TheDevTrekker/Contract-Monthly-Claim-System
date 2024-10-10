@@ -18,12 +18,33 @@ namespace ContractMonthlyClaimSystem.Controllers
             return View(pendingClaims);
         }
 
-        public IActionResult Report()
+        public IActionResult ManagerReport()
         {
-            var approvedClaims = _claimService.GetClaimsByStatus("Approved by Manager");
-            var rejectedClaims = _claimService.GetClaimsByStatus("Rejected by Manager");
+            var submittedClaims = _claimService.GetAllClaims();
 
-            return View();
+            // Categorize claims by status
+            var pendingClaims = submittedClaims
+                .Where(c => c.Status == "Pending" || c.Status == "Approved by Coordinator")
+                .ToList();
+
+            var approvedClaims = submittedClaims
+                .Where(c => c.Status == "Approved by Manager")
+                .ToList();
+
+            var rejectedClaims = submittedClaims
+                .Where(c => c.Status == "Rejected by Coordinator" || c.Status == "Rejected by Manager")
+                .ToList();
+
+            // Prepare the view model with categorized claims
+            var viewModel = new ManagerReportViewModel
+            {
+                PendingClaims = pendingClaims,
+                ApprovedClaims = approvedClaims,
+                RejectedClaims = rejectedClaims
+            };
+
+            // Pass the view model to the view
+            return View(viewModel);
         }
 
         [HttpPost]

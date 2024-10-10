@@ -28,12 +28,12 @@
 <form asp-action="SubmitClaimPost" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="NewClaim.HoursWorked" class="control-label"></label>
-        <input asp-for="NewClaim.HoursWorked" class="form-control" />
+        <input asp-for="NewClaim.HoursWorked" class="form-control" type="number" step="0.01" />
         <span asp-validation-for="NewClaim.HoursWorked" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="NewClaim.HourlyRate" class="control-label"></label>
-        <input asp-for="NewClaim.HourlyRate" class="form-control" />
+        <input asp-for="NewClaim.HourlyRate" class="form-control" type="number" step="0.01" />
         <span asp-validation-for="NewClaim.HourlyRate" class="text-danger"></span>
     </div>
     <div class="form-group">

@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "ProgrammeReview";
 }
-<h2>Pending Claims</h2>
+<h2>Coordinator Review Claims</h2>
 
 <table class="table table-striped table-bordered mt-4">
     <thead class="table-dark">
@@ -31,11 +31,11 @@
         {
             <tr>
                 <td>@claim.Id</td>
+                <td>@claim.SubmissionDate.ToString("MM/dd/yyyy")</td>
                 <td>@claim.LecturerName</td>
                 <td>@claim.HoursWorked</td>
                 <td>@claim.HourlyRate</td>
                 <td>R @(claim.HoursWorked*claim.HourlyRate)</td>
-                <td>@claim.SubmissionDate.ToString("MM/dd/yyyy")</td>
                 <td>@claim.Status</td>
                 <td>
                     @if (!string.IsNullOrEmpty(claim.SupportingDocumentPath))

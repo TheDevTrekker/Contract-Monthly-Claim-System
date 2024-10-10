@@ -6,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //Services
-builder.Services.AddScoped<userExamples>();
 builder.Services.AddSingleton<ClaimService>();
 
 // Add session services

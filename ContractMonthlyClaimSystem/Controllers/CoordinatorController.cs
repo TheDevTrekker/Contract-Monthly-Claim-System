@@ -23,7 +23,13 @@ namespace ContractMonthlyClaimSystem.Controllers
             var approvedClaims = _claimService.GetClaimsByStatus("Approved by Coordinator");
             var rejectedClaims = _claimService.GetClaimsByStatus("Rejected by Coordinator");
 
-            return View();
+            var viewModel = new CoReportViewModel
+            {
+                ApprovedClaims = approvedClaims,
+                RejectedClaims = rejectedClaims
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]

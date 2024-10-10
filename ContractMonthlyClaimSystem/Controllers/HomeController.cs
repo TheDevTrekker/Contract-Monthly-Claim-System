@@ -15,15 +15,34 @@ namespace ContractMonthlyClaimSystem.Controllers
 
         public IActionResult Index()
         {
-            string role = HttpContext.Session.GetString("Role");
-            HttpContext.Session.SetString("Name", "Pielie pielie");
             return View();
         }
 
+
         [HttpGet]
-        public IActionResult Dev()
+        public IActionResult LecturerAcc()
         {
-            HttpContext.Session.SetString("Role", "Dev");
+            HttpContext.Session.SetString("Role", "Lecturer");
+            HttpContext.Session.SetString("Name", "Phillip du Preez");
+            HttpContext.Session.SetString("Email", "phillip@gmail.com");
+            return View("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult CoordinatorAcc()
+        {
+            HttpContext.Session.SetString("Role", "Coordinator");
+            HttpContext.Session.SetString("Name", "Petra Korf");
+            HttpContext.Session.SetString("Email", "petra@gmail.com");
+            return View("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult ManagerAcc()
+        {
+            HttpContext.Session.SetString("Role", "Manager");
+            HttpContext.Session.SetString("Name", "Carl du Toit");
+            HttpContext.Session.SetString("Email", "carl@gmail.com");
             return View("Index", "Home");
         }
 
