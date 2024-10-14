@@ -117,34 +117,34 @@ else
     <div class="hero-section">
 
         <h1>Welcome Back, @Context.Session.GetString("Name")!</h1>
-        <p>Your role: @Context.Session.GetString("Role")</p>
+        <h4>Your role: @Context.Session.GetString("Role")</h4>
         <br>
         
         
         <div>
                 @if (Context.Session.GetString("Role") == "Lecturer")
                 {
-                <h2 style="margin-bottom: -20px;">What would you like to do?</h2>
+                <h3 style="margin-bottom: -20px;">What would you like to do?</h3>
                 <a class="btn btn-white btn-lg m-2" href="/Lecturer/SubmitClaims">Submit a Claim</a>
                 <a class="btn btn-white btn-lg m-2" href="/Lecturer/Report">Track My Claims</a>
                 }
                 else if (Context.Session.GetString("Role") == "Coordinator")
                 {
-                <h2>What would you like to do?</h2>
-                <a class="btn btn-white btn-lg m-2" href="/Coordinator/CoReview">Pending Approvals</a>
-                <a class="btn btn-white btn-lg m-2" href="/Coordinator/CoReport">Track All Claims</a>
+                <h3>What would you like to do?</h3>
+                <a class="btn btn-white btn-lg m-2" href="/Coordinator/CoReview">Review Claims</a>
+                <a class="btn btn-white btn-lg m-2" href="/Coordinator/CoReport">Previous Claims</a>
                 }
                 else if (Context.Session.GetString("Role") == "Manager")
                 {
-                <h2>What would you like to do?</h2>
-                <a class="btn btn-white btn-lg m-2" href="/Manager/ManagerReview">Claims Overview</a>
-                <a class="btn btn-white btn-lg m-2" href="/Manager/ManagerReport">Track All Claims</a>
+                <h3>What would you like to do?</h3>
+                <a class="btn btn-white btn-lg m-2" href="/AcademicManager/ManagerReview">Review Claims</a>
+                <a class="btn btn-white btn-lg m-2" href="/AcademicManager/ManagerReport">Previous Claims</a>
                 }
         </div>
     </div>
 
     <div class="features-section">
-        <p style="margin-top: 50px; margin-bottom: -20px;">Let us know if you have any queries, ideas, or concers. We are here to assist you.</p>
+        <p style="margin-top: 50px; margin-bottom: -20px; font-size: 20px;">Let us know if you have any queries, ideas, or concerns.</p>
         <div class="feature-item">
             <img src="/images/Feedback.png" alt="Review">
             <h3>Review</h3>

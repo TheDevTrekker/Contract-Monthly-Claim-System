@@ -1,5 +1,4 @@
 
-
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -12,15 +11,6 @@ html, body {
     margin: 0;
     padding: 0;
 }
-.wrapper {
-    display: flex;
-    flex-direction: column; /* Stack children vertically */
-    min-height: 100vh; /* Make the wrapper at least the height of the viewport */
-}
-.content{
-        flex: 1; /* Take up remaining vertical space */
-}
-
 
 
 .btn-yellow {
@@ -108,11 +98,57 @@ html, body {
         transform: scale(1.05) !important;
     }
 
-.footer {
-    background-color: #5a5a5a; /* Dark gray */
-    color: white; /* Text color */
-    padding: 20px 0; /* Add padding to top and bottom */
-    text-align: center; /* Center-align text */
-    width: 100vw; /* Full viewport width */
-    margin-top: auto; /* Ensure it pushes to the bottom */
+
+.site-footer {
+    background-color: #333; /* Dark background color */
+    color: white; /* White text color */
+    padding: 20px 0;
+    text-align: center;
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-social a {
+    color: white !important;
+    margin: 0 10px;
+    font-size: 1.2em;
+    transition: color 0.3s;
+}
+
+    .footer-social a:hover {
+        color: #ffeb3b !important;
+    }
+
+.footer-links a {
+    color: white !important; /* Links are now black */
+    margin: 0 15px;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+    .footer-links a:hover {
+        text-decoration: underline;
+    }
+
+.footer-container p {
+    margin: 10px 0;
+    font-size: 0.8em;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+    }
 }

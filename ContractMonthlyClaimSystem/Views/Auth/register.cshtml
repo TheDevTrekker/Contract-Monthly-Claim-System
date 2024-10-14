@@ -8,7 +8,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 50px;
+        margin-top: 5px;
         background-color: #ffffff; 
     }
 
@@ -68,14 +68,28 @@
             }
 </style>
 
+
 <div class="register-wrapper">
     <div class="register-container">
-
-
-        <form method="post" asp-page-handler="Register">
+        
+        <form method="post" asp-action="Register">
             <h3 class="text-black">Register</h3>
             <p class="text-black">Create an account.</p>
             <hr />
+            <div>
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success" role="alert">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @TempData["ErrorMessage"]
+                    </div>
+                }
+            </div>
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
             <div class="form-floating mb-3">
@@ -92,8 +106,7 @@
 
             <div class="form-floating mb-3">
                 <input asp-for="Password" type="password" class="form-control" autocomplete="new-password" placeholder="Password" />
-                <label asp-for="Password">Password</label>
-                <small class="text-muted">At least 6 characters.</small>
+                <label asp-for="Password">Password (At least 6 characters)</label>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 

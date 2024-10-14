@@ -6,19 +6,20 @@
         private List<Claim> claims = new List<Claim>();
 
         // Method to add a new claim
-        public void AddClaim(Claim claim)
+        public virtual void AddClaim(Claim claim)
         {
+            claim.Id = claims.Count + 1;
             claims.Add(claim);
         }
 
         // Method to get all claims
-        public List<Claim> GetAllClaims()
+        public virtual List<Claim> GetAllClaims()
         {
             return claims;
         }
 
         // Method to get claims by status
-        public List<Claim> GetClaimsByStatus(string status)
+        public virtual List<Claim> GetClaimsByStatus(string status)
         {
             return claims.Where(c => c.Status == status).ToList();
         }

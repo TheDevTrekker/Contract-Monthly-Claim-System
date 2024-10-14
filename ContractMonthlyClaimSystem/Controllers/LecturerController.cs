@@ -7,9 +7,8 @@ namespace ContractMonthlyClaimSystem.Controllers
     public class LecturerController : Controller
     {
         private readonly IWebHostEnvironment _environment;
-        
-
         private readonly ClaimService _claimService;
+
         public LecturerController(IWebHostEnvironment environment, ClaimService claimservice)
         {
             _environment = environment;
@@ -119,10 +118,6 @@ namespace ContractMonthlyClaimSystem.Controllers
 
             return View("SubmitClaims", model); // Return to the view with the current model
         }
-
-
-
-
 
     }
 }

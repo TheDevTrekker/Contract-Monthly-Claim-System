@@ -5,9 +5,7 @@ namespace ContractMonthlyClaimSystem.Models
 {
     public class Claim
     {
-
-        private static int _nextId = 0; // Static field to keep track of the next ID
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         [Required]
         [Range(1, 100, ErrorMessage = "Please enter a valid number of hours.")]
@@ -26,13 +24,9 @@ namespace ContractMonthlyClaimSystem.Models
         // This property will store the path of the uploaded file
         public string? SupportingDocumentPath { get; set; }
 
-        public string LecturerName { get; set; } // New property
-        public DateTime SubmissionDate { get; set; } // New property
-        public string Status { get; set; } = "Pending"; // New property to track the status
+        public string LecturerName { get; set; }
+        public DateTime SubmissionDate { get; set; } 
+        public string Status { get; set; } = "Pending"; 
 
-        public Claim()
-        {
-            Id = _nextId++;
-        }
     }
 }

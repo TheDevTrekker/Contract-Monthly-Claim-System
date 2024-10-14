@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ContractMonthlyClaimSystem.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
@@ -94,9 +95,33 @@
         </main>
     </div>
 
-    <footer class="footer footer-dark bg-dark text-muted">
-        <div>
-            &copy; 2024 - ContractMonthlyClaimSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-social">
+                <a href="https://www.instagram.com/derik.korf/"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/ST10268524"><i class="fab fa-github"></i></a>
+                <a href="https://www.facebook.com/derik.debull/"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a>
+            </div>
+            @if(Context.Session.GetString("Role") == null)
+            {
+                <div class="footer-links">
+                    <a href="/Auth/Register">Signup</a>
+                    <a href="/Auth/Login">Login</a>
+                    <a href="/Home/Index">Home</a>
+                </div>
+            }
+            else{
+                <div class="footer-links">
+                    <a href="/Home/Index">Home</a>
+                    <a href="#" onclick="confirmLogout()">Logout</a>
+                </div>
+            }
+            <div class="footer-copyright">
+                <p>© 2024, Contract Monthly Claim System</p>
+            </div>
+            
         </div>
     </footer>
 
