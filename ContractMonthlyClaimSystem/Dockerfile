@@ -7,11 +7,6 @@ WORKDIR /src
 # Copy everything
 COPY . .
 
-# If you have npm-based frontend builds, run them here
-# (Remove these lines if you have no package.json)
-RUN npm install
-RUN npm run build
-
 # Restore and publish .NET app
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app
